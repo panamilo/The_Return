@@ -28,4 +28,50 @@ public class Player : MonoBehaviour
         }
         return false;
     }
+    public void Teleport(GameController controller, Location destination){
+        currentLocation = destination;
+        controller.DisplayLocation();
+    }
+
+    public bool CanUseItem(GameController controller, Item item){
+        if(item.targetItem == null)
+            return true;
+        if(HasItem(item.targetItem))
+            return true;
+        if(currentLocation.HasItem(item.targetItem))
+            return true;
+        controller.currentText.text = "You need the " + item.targetItem.itemName + " to use the " + item.itemName;
+        return false;
+    }
+
+    public bool CanReadItem(GameController controller, Item item){
+        if(item.targetItem == null)
+            return true;
+        if(HasItem(item.targetItem))
+            return true;
+        if(currentLocation.HasItem(item.targetItem))
+            return true;
+        return false;
+    }
+    public bool HasItem(Item itemToCheck){
+        foreach(Item item in inventory)
+        if(item == itemToCheck && item.itemEnabled)
+            return true;
+        return false;
+    }
+
+    public bool CanTalkToItem(GameController controller, Item item){
+        return item.playerCanTalkTo;
+    }
+
+    public bool CanGiveToItem(GameController controller, Item item){
+        return item.playerCanGiveTo;
+    }
+
+    public bool HasItemByName(string noun){
+        foreach(Item item in inventory)
+        if(item.itemName.ToLower() == noun.ToLower())
+            return true;
+        return false;
+    }
 }

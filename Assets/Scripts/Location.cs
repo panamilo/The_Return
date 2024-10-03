@@ -55,4 +55,11 @@ public class Location : MonoBehaviour
         }
         return null;
     }
+    public bool HasItem(Item targetItem){
+        foreach(Item item in items){
+            if(item == targetItem && item.itemEnabled)
+                return true;
+        }
+        return false;
+    }
 }

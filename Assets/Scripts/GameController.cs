@@ -28,10 +28,13 @@ public class GameController : MonoBehaviour
         
     }
 
-    public void DisplayLocation(){
+    public void DisplayLocation(bool additive = false){
         string description = player.currentLocation.description + "\n";
         description += player.currentLocation.GetConnectionsText();
         description += player.currentLocation.getItemsText();
+        if(additive)
+            currentText.text += "\n" + description;
+        else
         currentText.text = description;
 
     }
